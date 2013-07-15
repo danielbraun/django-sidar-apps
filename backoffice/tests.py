@@ -119,8 +119,11 @@ class WorkTests(TestCase):
         self.assertNotEqual(work.raw_image.name, '')
 
     def test_filename_regex_pattern(self):
-        """Work filenames that should be imported"""
+        """Work filenames that should be and not be imported"""
         self.assertRegexpMatches('G-AdO-Pos-002.jpg', Work.filename_regex_pattern)
-        self.assertRegexpMatches('G-AdO-CV-002b.jpg', Work.filename_regex_pattern)
+        self.assertRegexpMatches('G-AdO-Sta-002b.jpg', Work.filename_regex_pattern)
         self.assertRegexpMatches('G-AdO-Sta-016 copy.jpg', Work.filename_regex_pattern)
         self.assertRegexpMatches('G-AdO-Sta-016 copy 2.jpg', Work.filename_regex_pattern)
+
+        self.assertNotRegexpMatches('G-AdO-CV-002b.jpg', Work.filename_regex_pattern)
+        self.assertNotRegexpMatches('G-AdO-Ar-002b.jpg', Work.filename_regex_pattern)

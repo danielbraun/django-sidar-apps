@@ -93,7 +93,7 @@ class DesignPersona(CommonModel):
                                   upload_to="pdf/", blank=True)
     is_active = models.BooleanField(u'מופיע באתר', default=False)
     philosophy_summary = HTMLField(u'תקציר פילוסופיה', blank=True)
-    sidar_id = models.CharField(max_length=10)
+    sidar_id = models.CharField(u'קוד',max_length=10)
 
     class Meta(CommonModel.Meta):
         abstract = True
@@ -197,7 +197,7 @@ class Work(models.Model):
 
     description = models.TextField(u'תיאור', blank=True)
 
-    filename_regex_pattern = r'^(\w)-(\w+)-(\w+)-(\d+)(.+).jpg$'
+    filename_regex_pattern = r'^(\w)-(\w+)-((?!Ar)(?!CV)\w+)-(\d+)(.+).jpg$'
 
     class Meta(CommonModel.Meta):
         verbose_name = "עבודה"
@@ -231,7 +231,7 @@ class Category(CommonModel, FilterableByDesignerMixin,
                                blank=True, null=True)
     info = models.TextField(u'מידע על הקטגוריה')
     objects = GenericManager()
-    sidar_id = models.CharField(max_length=5)
+    sidar_id = models.CharField(u'קוד', max_length=5)
 
     class Meta(CommonModel.Meta):
         verbose_name = "קטגוריה"

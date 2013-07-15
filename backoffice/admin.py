@@ -85,6 +85,7 @@ class DesignerAdmin(LargeImagePreviewInChangeForm, WithWorkCountField,
         'birth_year', 'is_active', 'show_work_count', )
     list_filter = ('generation_as_choices', 'is_active')
     list_editable = ['is_active']
+    readonly_fields = ['sidar_id', ]
     fields = ['name', 'sidar_id', 'birth_year', 'death_year',
               'birth_country', 'generation_as_choices', 'photo', 'philosophy',
               'is_active', 'philosophy_summary']

@@ -7,8 +7,8 @@ import os
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        for root, dirs, files in os.walk(settings.PORFOLIO_IMAGE_DIR):
-            i = 0
+        i = 0
+        for root, dirs, files in os.walk(settings.PORTFOLIO_IMAGE_DIR):
             for name in files:
                 full_path = os.path.join(root, name)
                 print full_path
