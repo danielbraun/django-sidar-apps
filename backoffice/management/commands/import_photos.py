@@ -14,6 +14,4 @@ class Command(BaseCommand):
                 print full_path
                 if Work.create_from_photo(full_path):
                     i = i + 1
-                if i == 10:
-                    break
         print "%s images." % i
