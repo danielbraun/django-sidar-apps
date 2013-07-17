@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from people.models import Person
-from backoffice.models import Subject, Category
+from backoffice.models import Designer, Discipline, Category
 
 
 class Article(models.Model):
-    article = models.FileField(upload_to='articles/')
+    article = models.FileField(upload_to='articles/',
+                               verbose_name=u'קובץ המאמר')
     title = models.CharField(u'כותרת', max_length=100)
-    author = models.ForeignKey(Person, verbose_name=u'מחבר',
-                               related_name='articles_written')
-    about_person = models.ForeignKey(Person, verbose_name=u'מושא',
-                                     related_name='articles_about')
-    subjects = models.ManyToManyField(Subject, verbose_name=u'נושאים')
-    category = models.ForeignKey(Category, verbose_name=u'קטגוריה')
-    publish_date = models.DateField(u'תאריך פרסום')
-    abstract = models.TextField(u'תקציר')
+    category = models.ForeignKey(Category, verbose_name=u'קטגורית עיצוב',
+                                 null=True)
+    about_designer = models.ForeignKey(Designer, null=True,
+                                       verbose_name=u'עוסק במעצב')
+    discipline = models.ForeignKey(Discipline, verbose_name=u'תחום עיצוב')
 
     class Meta:
         verbose_name = u'מאמר'

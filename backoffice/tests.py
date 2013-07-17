@@ -43,9 +43,6 @@ class ViewTests(TestCase):
     def test_designer_list(self):
         self.assertResponseOK('/discipline/%d/designer/' % self.discipline.id)
 
-    def test_article_list(self):
-        self.assertResponseOK('/discipline/%d/article/' % self.discipline.id)
-
     def test_video_list(self):
         self.assertResponseOK('/discipline/%d/video/' % self.discipline.id)
 
