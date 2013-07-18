@@ -91,9 +91,10 @@ class DesignPersona(CommonModel):
     photo = models.ImageField(u'דיוקן', upload_to="images/", blank=True)
     philosophy = models.FileField(u'קובץ פילוסופיה',
                                   upload_to="pdf/", blank=True)
+    cv = models.FileField(u'קורות חיים', upload_to="cv/", null=True, blank=True)
     is_active = models.BooleanField(u'מופיע באתר', default=False)
     philosophy_summary = HTMLField(u'תקציר פילוסופיה', blank=True)
-    sidar_id = models.CharField(u'קוד',max_length=10)
+    sidar_id = models.CharField(u'קוד', max_length=10)
 
     class Meta(CommonModel.Meta):
         abstract = True
@@ -103,6 +104,10 @@ class DesignPersona(CommonModel):
                                     .values_list('category', flat=True)\
                                     .distinct()
         return Category.objects.filter(pk__in=category_ids)
+
+    def attached_files(self):
+        """Only returns files attachments with files in them"""
+        return [field for field in [self.cv, self.philosophy] if field]
 
 
 class Designer(DesignPersona, MainDisciplineMethodMixin):
