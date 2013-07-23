@@ -123,12 +123,19 @@ class Designer(DesignPersona, MainDisciplineMethodMixin):
 
     generation_as_choices = models.IntegerField(u'שייך לדור', null=True,
                                                 choices=GENERATIONS)
+    belongs_to_studio = models.ForeignKey(
+        'self', null=True, blank=True, verbose_name=u'שייך לסטודיו',
+        limit_choices_to={'generation_as_choices': 5}
+    )
 
     def get_absolute_url(self):
-        return reverse('work-list', kwargs={
-            'discipline': self.main_discipline().id,
-            'designer': self.id,
-        })
+        try:
+            return reverse('work-list', kwargs={
+                'discipline': self.main_discipline().id,
+                'designer': self.id,
+            })
+        except AttributeError:
+            return None
 
     class Meta(CommonModel.Meta):
         verbose_name = "מעצב"

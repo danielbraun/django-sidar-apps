@@ -87,8 +87,8 @@ class DesignerAdmin(LargeImagePreviewInChangeForm, WithWorkCountField,
     list_editable = ['is_active']
     readonly_fields = ['sidar_id', ]
     fields = ['name', 'sidar_id', 'birth_year', 'death_year',
-              'birth_country', 'generation_as_choices', 'photo', 'philosophy',
-              'cv', 'is_active', 'philosophy_summary']
+              'birth_country', 'generation_as_choices', 'belongs_to_studio',
+              'photo', 'philosophy', 'cv', 'is_active', 'philosophy_summary']
 
 
 class CollectorAdmin(LargeImagePreviewInChangeForm,
