@@ -125,9 +125,9 @@ class Designer(DesignPersona, MainDisciplineMethodMixin):
                                                 choices=GENERATIONS)
 
     def get_absolute_url(self):
-        return reverse('designer-detail', kwargs={
+        return reverse('work-list', kwargs={
             'discipline': self.main_discipline().id,
-            'pk': self.id,
+            'designer': self.id,
         })
 
     class Meta(CommonModel.Meta):
@@ -138,6 +138,12 @@ class Designer(DesignPersona, MainDisciplineMethodMixin):
 class Collector(DesignPersona, MainDisciplineMethodMixin):
     homepage = models.URLField(u'אתר בית', blank=True)
     objects = GenericManager()
+
+    def get_absolute_url(self):
+        return reverse('work-list', kwargs={
+            'discipline': self.main_discipline().id,
+            'collector': self.id,
+        })
 
     class Meta(CommonModel.Meta):
         verbose_name = u'אספן'
