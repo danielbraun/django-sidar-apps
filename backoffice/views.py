@@ -21,6 +21,13 @@ class DisciplineMixin(object):
         context['discipline'] = self.discipline
         return context
 
+class DisciplineListView(DisciplineMixin, ListView):
+    pass
+
+
+class DisciplineDetailView(DisciplineMixin, DetailView):
+    pass
+
 
 class DisciplineFilterMixin(DisciplineMixin):
     def get_queryset(self):

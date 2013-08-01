@@ -43,9 +43,6 @@ class ViewTests(TestCase):
     def test_designer_list(self):
         self.assertResponseOK('/discipline/%d/designer/' % self.discipline.id)
 
-    def test_event_list(self):
-        self.assertResponseOK('/discipline/%d/event/' % self.discipline.id)
-
     def test_search_page_loads(self):
         self.assertResponseOK('/discipline/%d/search/' % self.discipline.id)
 
