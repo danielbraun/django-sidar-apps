@@ -8,7 +8,7 @@ from form_utils.widgets import ImageWidget
 import models
 from django.db.models import ImageField
 from django.contrib.auth.admin import UserAdmin
-
+from moderation.admin import ModerationAdmin
 
 TranslationAdmin.actions_on_bottom = True
 TranslationAdmin.actions_on_top = False
@@ -45,7 +45,7 @@ class LargeImagePreviewInChangeForm(object):
     }
 
 
-class WorkAdmin(LargeImagePreviewInChangeForm, TranslationAdmin):
+class WorkAdmin(ModerationAdmin, LargeImagePreviewInChangeForm, TranslationAdmin):
     admin_thumbnail = AdminThumbnail(image_field='processed_image')
     admin_thumbnail.short_description = u'תצוגה מקדימה'
     list_display = ('get_raw_image_filename', 'name', 'designer',
