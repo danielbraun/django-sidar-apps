@@ -213,6 +213,7 @@ class Work(models.Model):
     country = CountryField(u'מדינה', null=True, blank=True, default='IL')
     technique = models.CharField(u'טכניקה', max_length=255, blank=True)
 
+    visible = models.BooleanField()
     description = models.TextField(u'תיאור', blank=True)
 
     filename_regex_pattern = r'^(\w)-(\w+)-((?!Ar)(?!CV)\w+)-(\d+)(.+).jpg$'
