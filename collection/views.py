@@ -6,7 +6,14 @@ from django.views.generic.edit import DeleteView
 from backoffice.models import Work
 from collection.models import Collectable
 from django.views.generic.list import ListView
+from django.shortcuts import render
 
+
+def collectable_list(request):  
+    return render(request,
+                  "collection/collectable_list.html",
+                  {'collectable_list': Collectable.objects.filter(user=request.user.id)}
+                  )
 
 class CollectView(View):
     def post(self, request, pk, **kwargs):
@@ -46,15 +53,27 @@ class DownAction(View):
         return HttpResponseRedirect(reverse('collection-home'))
 
 
-class SortableCollectableList(ListView):
-    model = Collectable
-    template_name = "collection/collectable_list_sortable.html"
 
-    def post(self, request):
+
+def sortable_collectable_list_view(request):
+    if request.method == "POST":
         i = 1
-        for item_id in self.request.POST.getlist('collectable[]'):
-            collectable = Collectable.objects.get(pk=item_id, user=self.request.user)
-            collectable.position = i
-            collectable.save()
-            i += 1
+        for item_id in request.POST.getlist('collectable[]'):
+             collectable = Collectable.objects.get(pk=item_id, user=request.user.id)
+             collectable.position = i
+             collectable.save()
+             i += 1
         return HttpResponseRedirect(reverse('collection-home'))
+    if request.method == "GET":
+        return render (request,
+                  "collection/collectable_list_sortable.html",
+                  {'collectable_list': Collectable.objects.filter(user=request.user.id)}
+                  )
+
+    
+def slideshow_collectable_list_view(request):  
+    return render (request,
+                  "collection/collectable_list_slideshow.html",
+                  {'collectable_list': Collectable.objects.filter(user=request.user.id)}
+                  )
+
