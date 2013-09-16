@@ -26,10 +26,10 @@ class WorkFilterSet(django_filters.FilterSet):
         label=u'מאוסף'
     )
 
-    q = django_filters.CharFilter(
-        label=u'חיפוש חופשי',
-        action=free
-    )
+    # q = django_filters.CharFilter(
+    #     label=u'חיפוש חופשי',
+    #    action=free
+    # )
 
     class Meta:
         model = Work
