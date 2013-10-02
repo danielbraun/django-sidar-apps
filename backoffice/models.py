@@ -216,7 +216,7 @@ class Work(models.Model):
     visible = models.BooleanField()
     description = models.TextField(u'תיאור', blank=True)
 
-    filename_regex_pattern = r'^(\w)-(\w+)-((?!Ar)(?!CV)\w+)-(\d+)(.+).jpg$'
+    filename_regex_pattern = r'^(\w)-(\w+)-(\w+)-(\d+)(.+).jpg$'
 
     class Meta(CommonModel.Meta):
         verbose_name = "עבודה"

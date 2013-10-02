@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+    <head>
+        <title>
+        </title>
+        <link href="{{ STATIC_URL }}importer/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <ul>
+            {% for item in items %}
+            <li class="item">
+            <img src="{{ item.full_path }}" />
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
