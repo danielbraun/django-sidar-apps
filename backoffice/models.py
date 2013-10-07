@@ -215,6 +215,8 @@ class Work(models.Model):
 
     visible = models.BooleanField()
     description = models.TextField(u'תיאור', blank=True)
+    sidar_id = models.CharField(u'קוד עבודה', max_length=50)
+
 
     filename_regex_pattern = r'^(\w)-(\w+)-(\w+)-(\d+)(.+).jpg$'
 
@@ -232,16 +234,20 @@ class Work(models.Model):
     @classmethod
     def create_from_photo(cls, file_path):
         import re
-        m = re.match(cls.filename_regex_pattern, os.path.basename(file_path))
+        filename = os.path.basename(file_path)
+        m = re.match(cls.filename_regex_pattern, filename)
         if m:
-            with File(open(file_path)) as f:
+            with File(open(file_path)) as file_handle:
                 names = m.groups()
                 return cls.objects.create(
                     discipline=Discipline.objects.get_or_create(sidar_id=names[0])[0],
                     designer=Designer.objects.get_or_create(sidar_id=names[1])[0],
                     category=Category.objects.get_or_create(sidar_id=names[2])[0],
-                    raw_image=f
+                    sidar_id=os.path.splitext(filename)[0],
+                    raw_image=file_handle
                 )
+        else:
+            raise Exception("Invalid filename: %s" % filename)
 
 
 class Category(CommonModel, FilterableByDesignerMixin,

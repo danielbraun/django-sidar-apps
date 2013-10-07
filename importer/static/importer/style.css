@@ -2,3 +2,13 @@
     max-height: 200px;
     max-width: 200px;
 }
+
+.item {
+    list-style-type: none;
+    display: inline;
+}
+
+
+.imported {
+    opacity: 0.2;
+}
