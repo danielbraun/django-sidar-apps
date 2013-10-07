@@ -8,12 +8,17 @@
     </head>
 
     <body>
-        <ul>
-            {% for item in items %}
-            <li class="item">
-            <img src="{{ item.full_path }}" />
-            </li>
-            {% endfor %}
-        </ul>
+        <form method="post">
+            {% csrf_token %}
+            <ul>
+                {% for item in items %}
+                <li class="item">
+                <input type="CHECKBOX" name="items" value="{{ item.full_path }}"/>
+                <img src="{{ item.full_path }}" />
+                </li>
+                {% endfor %}
+            </ul>
+            <input type="SUBMIT" />
+        </form>
     </body>
 </html>

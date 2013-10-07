@@ -15,6 +15,7 @@ urlpatterns += patterns('django.views.static',
                         url(regex=r'^design26/(?P<path>.*)$',
                             view='serve',
                             kwargs={
-                                'document_root': settings.PORTFOLIO_CSV_ROOT}
+                                'document_root': settings.PORTFOLIO_CSV_ROOT},
+                            name='design26'
                             )
                         )

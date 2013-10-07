@@ -1,8 +1,8 @@
 from django.test import TestCase
-from django.conf import settings
 from django.contrib.auth.models import User
-import os
-import urllib
+from backoffice.models import Work
+from moderation.models import ModeratedObject
+from importer.views import get_physical_path
 
 
 class FunctionalTests(TestCase):
@@ -25,3 +25,9 @@ class FunctionalTests(TestCase):
         """ Test whether items in design26 are mounted correctly """
         response2 = self.client.get("/importer/design26/models.py")
         self.assertEquals(response2.status_code, 200)
+
+    def test_import_selected_items(self):
+        """ Works should be added when I post my selection """
+        item_path = self.response.context['items'][0]['full_path']
+        self.client.post('/importer/', {'items': [item_path, ]})
+        self.assertEquals(ModeratedObject.objects.all().count(), 1)

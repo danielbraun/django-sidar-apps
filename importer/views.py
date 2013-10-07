@@ -1,11 +1,28 @@
 # TODO: abstract designer directories also
 # -*- coding: utf-8 -*-
 
+from django.http import HttpResponse
 from django.shortcuts import render
 import os
 from django.conf import settings
 from backoffice.models import Work
+from django.core.urlresolvers import reverse
 import re
+import urllib2
+
+
+def get_full_path(dirpath, filename):
+    path = os.path.join(dirpath,
+                        filename).replace(settings.PORTFOLIO_CSV_ROOT,
+                                          '')
+    return reverse('design26',
+                   kwargs={'path': path})
+
+
+def get_physical_path(url):
+    return urllib2.unquote(
+        url.replace(reverse('design26', kwargs={'path': ''}),
+                    settings.PORTFOLIO_CSV_ROOT))
 
 
 def get_files(query):
@@ -37,7 +54,8 @@ def get_files(query):
                     if filename.startswith(query):
                         result.append({
                             'filename': filename,
-                            'full_path': os.path.join(dirpath, filename).replace(settings.PORTFOLIO_CSV_ROOT, "/importer/design26/")
+                            'full_path': urllib2.unquote(get_full_path(dirpath,
+                                                                       filename))
                         })
             if wrong_discipline:
                 wrong_discipline = False
@@ -46,6 +64,11 @@ def get_files(query):
 
 
 def index(request):
-    return render(request,
-                  "importer/index.html",
-                  {'items': get_files(request.GET.get('q'))})
+    if request.method == "GET":
+        return render(request,
+                      "importer/index.html",
+                      {'items': get_files(request.GET.get('q'))})
+    if request.method == "POST":
+        for item_path_name in request.POST.getlist('items'):
+            Work.create_from_photo(get_physical_path(item_path_name))
+        return HttpResponse("Success")
