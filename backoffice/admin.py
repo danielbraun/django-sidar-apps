@@ -54,12 +54,12 @@ class WorkAdmin(ModerationAdmin, LargeImagePreviewInChangeForm, TranslationAdmin
     list_filter = ('discipline', 'category', 'designer', 'of_collections')
     filter_horizontal = ['subjects', 'of_collections']
     readonly_fields = ['get_raw_image_filename', ]
-    fields = ['raw_image', 'designer', 'name', 'get_raw_image_filename', 'category', 'tags',
-              'discipline', 'publish_date_as_text', 'publish_year',
-              'size_as_text', 'height',
-              'width', 'depth', 'country', 'client', 'technique',
-              'of_collections', 'is_self_collected', 'subjects', 'description',
-              ]
+    # fields = ['raw_image', 'designer', 'name', 'get_raw_image_filename', 'category', 'tags',
+              # 'discipline', 'publish_date_as_text', 'publish_year',
+              # 'size_as_text', 'height',
+              # 'width', 'depth', 'country', 'client', 'technique',
+              # 'of_collections', 'is_self_collected', 'subjects', 'description',
+              # ]
 
     def get_raw_image_filename(self, instance):
         import os

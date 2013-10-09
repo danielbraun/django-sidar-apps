@@ -18,12 +18,12 @@
                 {% for item in items %}
                 <li class="item">
 
-                {% if not item.already_imported %}
-                <input type="CHECKBOX" name="items" id="item_input{{ forloop.counter }}" value="{{ item.full_path }}"/>
+                {% if not item.is_already_imported %}
+                <input type="CHECKBOX" name="items" id="item_input{{ forloop.counter }}" value="{{ item.id }}"/>
                 {% endif %}
 
                 <label for="item_input{{ forloop.counter }}">
-                    <img src="{{ item.full_path }}" {% if item.already_imported %} class="imported" {% endif %}/>
+                    <img src="{{ item.get_filename_url }}" {% if item.is_already_imported %} class="imported" {% endif %}/>
                 </label>
                 </li>
                 {% endfor %}
